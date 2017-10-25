@@ -1,0 +1,172 @@
+---
+title: "R Notebook"
+author: "Luke Johnston"
+output: html_notebook
+---
+
+# Git basic commands
+
+- `git status`: 
+- `git add`
+- `git commit`
+- `git log`
+- `git diff`
+
+## Secondary commands
+
+Infrequently used:
+
+- `git remote`
+
+More commonly used:
+
+- `git push`
+- `git pull`
+
+# Basic R commands
+
+## Basic math
+
+```{r}
+1 + 1
+1 - 1
+1 * 1
+1 / 1
+1 ^ 1
+```
+
+## Data wrangling with dplyr
+
+```{r}
+library(tidyverse)
+```
+
+- `select`
+- `arrange`
+- `mutate`
+- `group_by`
+- `summarize`
+- `filter`
+- `rename`
+- `%>%`
+- `tbl_df`
+
+```{r}
+class(CO2)
+```
+
+```{r}
+class(mean)
+```
+
+```{r}
+class(1:10)
+```
+
+```{r}
+class(1.23)
+```
+
+```{r}
+CO2_df <- tbl_df(CO2)
+class(CO2_df)
+```
+
+```{r}
+CO2
+CO2_df
+```
+
+```{r}
+names(CO2_df)
+```
+
+
+```{r}
+CO2_df %>%
+    select(Plant, Type, conc)
+```
+
+```{r}
+CO2_df %>% select(Plant, Type) %>% select(Plant)
+select(select(CO2_df, Plant, Type), Plant)
+CO2_df %>% select(., Plant)
+```
+
+```{r}
+str(CO2_df)
+```
+
+```{r}
+glimpse(CO2_df)
+```
+
+```{r}
+CO2_df %>% arrange(conc)
+CO2_df %>% arrange(desc(conc))
+CO2_df %>% arrange(Type, desc(conc))
+```
+
+```{r}
+CO2_df %>%
+    mutate(Test = "Yes",
+           conc_small = conc / 100,
+           Treatment_sp = ifelse(Treatment == "nonchilled", "non-chilled", Treatment),
+           lconc_small = log(conc_small))
+
+# mutate_if mutate_at mutate_all mutate_each
+```
+
+```{r}
+CO2_df %>% 
+    rename(plant = Plant, type = Type)
+```
+
+```{r}
+TRUE
+FALSE
+class(TRUE)
+
+TRUE & TRUE
+TRUE | TRUE
+TRUE & FALSE
+TRUE | FALSE
+FALSE | FALSE
+FALSE & FALSE
+TRUE | (FALSE & TRUE)
+(TRUE | TRUE) & FALSE
+```
+
+
+```{r}
+CO2_df %>% 
+    filter(Type == "Quebec")
+
+CO2_df[CO2_df$Type == "Quebec", ]
+```
+
+```{r}
+CO2_df %>% 
+    filter(Type == "Quebec" & Treatment == "chilled")
+
+CO2_df %>% 
+    filter(Type == "Quebec" | Treatment == "chilled")
+
+CO2_df %>% 
+    filter(Plant == "Qn1" | Plant == "Qn2")
+
+CO2_df %>% 
+    filter(Plant == "Qn1" & Plant == "Qn2")
+
+CO2_df %>% 
+    filter(Plant %in% c("Qn1", "Qn2", "Qn3"))
+
+CO2_df %>% 
+    filter(conc > 300)
+
+# > < >= <= ==
+
+CO2_df %>% 
+    filter(between(conc, 300, 700))
+```
+
