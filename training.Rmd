@@ -1,7 +1,13 @@
 ---
 title: "R Notebook"
 author: "Shahen Yashpal"
-output: html_notebook
+output: 
+    html_document:
+        toc: true
+        toc_float:
+            collapsed: false
+        theme: yeti
+        highlight: haddock
 ---
 # Git Basic Commands
 
