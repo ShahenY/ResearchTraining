@@ -1,0 +1,14 @@
+---
+title: "R Notebook"
+author: "Luke Johnston"
+output: html_notebook
+---
+
+# Git basic commands
+
+- `git status`: 
+- `git add`
+- `git commit`
+- `git log`
+- `git diff`
+
