@@ -1,0 +1,86 @@
+---
+title: "R Notebook"
+author: "Shahen Yashpal"
+output: html_notebook
+---
+# Git Basic Commands
+
+- `git status` in git this is the smae thing as telling me the status
+- `git add` equivalent to checking the box
+- `git commit` this commed with -m "" message to be added when commiting
+- `git log` shows history
+- `git diff` shows difference since last commit
+
+## Secondary commands
+
+Infrequently Used commands
+
+- `git remote`
+
+More Commonly Used:
+
+- `git push`
+- `git pull`
+
+# Basic R Commands
+
+## Basic Math
+
+```{r}
+1 + 1
+1 ^ 1
+```
+## Data Wrangler
+
+```{r}
+library(tidyverse)
+```
+
+- `select`
+- `arrange`
+- `mutate`
+- `group_by`
+- `summarize`
+- `filter`
+- `rename`
+- ` %>% `
+
+```{r}
+class(1.23)
+```
+
+```{r}
+class(1:10)
+```
+
+```{r}
+CO2_df <- tbl_df(CO2)
+class(CO2_df)
+```
+```{r}
+CO2_df
+```
+
+```{r}
+CO2_df %>% 
+    select(Plant, Type, conc)
+```
+```{r}
+names(CO2_df)
+```
+```{r}
+CO2_df %>% select(Plant, Type)
+```
+
+```{r}
+glimpse (CO2_df) #tells me what my data looks like
+str(CO2_df) #tells me in more detail what my data looks like
+str(1:10)
+```
+
+
+```{r}
+CO2_df %>%  arrange(conc)
+CO2_df %>%  arrange(desc(conc))
+CO2_df %>%  arrange(Type, desc(conc))
+```
