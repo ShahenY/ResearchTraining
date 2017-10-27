@@ -35,7 +35,9 @@ More commonly used:
 1 ^ 1
 ```
 
-## Data wrangling with dplyr
+## Data wrangling
+
+### With dplyr
 
 ```{r}
 library(tidyverse)
@@ -168,5 +170,76 @@ CO2_df %>%
 
 CO2_df %>% 
     filter(between(conc, 300, 700))
+```
+
+```{r}
+library(tidyverse)
+co2df <- tbl_df(CO2)
+
+names(co2df)
+co2df %>% 
+    summarize(mean_conc = mean(conc),
+              mean_uptake = mean(uptake))
+mean(co2df$conc)
+
+co2df %>% 
+    group_by(Type) %>% 
+    summarize(mean_conc = mean(conc),
+              mean_uptake = mean(uptake))
+
+mean(co2df[co2df$Type == "Quebec", ]$uptake)
+mean(co2df[co2df$Type != "Quebec", ]$uptake)
+    
+co2df %>% 
+    group_by(Type, Treatment) %>% 
+    summarize(mean_uptake = sum(uptake))
+```
+
+Use iris dataset, keep only `Petal.Length` > 2.5, and find the `mean` and `sd`
+of `Sepal.Length` and `Sepal.Width` by `Species`, the tidyverse way.
+
+
+```{r}
+iris %>% 
+    filter(Petal.Length > 2.5) %>% 
+    group_by(Species) %>% 
+    summarise_all(funs(mean, sd))
+
+```
+
+### tidyr
+
+- `gather`: Wide -> Long
+- `spread`: Long -> Wide
+
+```{r}
+ds <- data.frame(
+    x1 = 1:10,
+    x2 = 11:20,
+    x3 = 21:30
+) 
+ds
+ds %>% 
+    gather(Variable, Values) 
+# %>% 
+    # group_by(Variable) %>% 
+    # summarize_all(funs(mean))
+
+```
+
+
+```{r}
+mean_sd <- function(x, digits = 2) {
+    mean_val <- round(mean(x), digits)
+    sd_val <- round(sd(x), digits)
+    paste0(mean_val, " (", sd_val, ")")
+}
+
+iris %>% 
+    gather(Variable, Values, -Species) %>% 
+    group_by(Species, Variable) %>% 
+    summarize(MeanSD = mean_sd(Values, 4)) %>% 
+    spread(Species, MeanSD)
+    
 ```
 
