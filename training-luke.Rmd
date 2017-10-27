@@ -39,6 +39,8 @@ More commonly used:
 
 ### With dplyr
 
+### dplyr
+
 ```{r}
 library(tidyverse)
 ```
