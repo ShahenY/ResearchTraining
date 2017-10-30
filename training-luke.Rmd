@@ -245,3 +245,84 @@ iris %>%
     
 ```
 
+## Visualization
+
+```{r}
+library(tidyverse)
+
+names(diamonds)
+```
+
+```{r}
+glimpse(diamonds)
+```
+
+
+```{r}
+dim(diamonds)
+```
+
+```{r}
+ggplot(diamonds)
+```
+
+```{r}
+ggplot(diamonds, aes(x = carat, y = price))
+```
+
+```{r}
+ggplot(diamonds, aes(x = carat, y = price)) +
+    geom_point()
+```
+
+```{r}
+ggplot(diamonds, aes(x = carat, y = price, color = cut)) +
+    geom_point(alpha = 0.3) +
+    facet_wrap(~ clarity, ncol = 3)
+```
+
+```{r}
+names(swiss)
+```
+
+```{r}
+ggplot(swiss, aes(x = Fertility)) +
+    geom_density()
+```
+
+```{r}
+swiss %>% 
+    gather(Variable, Value) %>% 
+    ggplot(aes(x = Value)) +
+    geom_density() +
+    facet_wrap(~ Variable)
+```
+
+```{r}
+swiss %>% 
+    gather(Variable, Value) %>% 
+    ggplot(aes(x = Variable, y = Value)) +
+    geom_boxplot()
+```
+
+```{r}
+swiss %>% 
+    gather(Variable, Value) %>% 
+    ggplot(aes(x = Variable, y = Value, fill = Variable)) +
+    geom_boxplot() +
+    scale_fill_manual(name = "Dataset columns", 
+                      values = c("red", "green", "blue", "black", "yellow", "pink")) +
+    theme(axis.line = element_line(color = "black"),
+          panel.background = element_blank(),
+          axis.text.x = element_text(size = 5)) +
+    labs(x = "Variables within dataset", y = "Number", title = "This is an example")
+```
+
+```{r}
+swiss %>% 
+    gather(Variable, Value) %>% 
+    ggplot(aes(x = Value)) +
+    geom_density() +
+    facet_wrap(~ Variable, scales = "free", strip.position = "right")
+```
+
