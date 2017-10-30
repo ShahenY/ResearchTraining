@@ -21,7 +21,11 @@ output:
 
 Infrequently Used commands
 
-- `git remote`
+
+- `git remote` # -v tells you the git hub link you were working with
+- cd #change directory
+- pwd # checks where you are in the directory
+- ls  #list of things in that location
 
 More Commonly Used:
 
