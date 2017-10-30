@@ -118,7 +118,7 @@ iris %>%
 ```
 
 ### tidyr
--gather #takes Wide and make sit into Long
+- gather #takes Wide and make sit into Long
 - Spread #takes Long and changes it into Wide
 
 ```{r}
