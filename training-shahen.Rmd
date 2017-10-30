@@ -50,10 +50,11 @@ library(tidyverse)
 - `arrange`
 - `mutate`
 - `group_by`
-- `summarize`
+- `summarize` # vs mutate this allows me to return a single number summarizing values where as Mutate applies the calculation to all things in that column.
 - `filter`
 - `rename`
 - ` %>% `
+- 
 
 ```{r}
 class(1.23)
