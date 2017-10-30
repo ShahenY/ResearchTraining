@@ -129,3 +129,88 @@ x3 = 21:30
 )
 ds %>% gather(Variable, Values)
 ```
+##Visualization
+
+```{r}
+library(tidyverse)
+names(diamonds)
+ggplot(diamonds)
+```
+
+```{r}
+glimpse(diamonds)
+
+ggplot(diamonds, aes(x = carat, y = price, color = cut)) +
+    geom_point(alpha = 0.3) +
+    facet_wrap( ~ clarity, ncol=3)
+
+
+```
+
+
+```{r}
+CO2 <- datasets::CO2
+
+names(CO2)
+glimpse(CO2)
+CO2 %>%
+    ggplot(aes(x = conc, y = uptake, color = Treatment)) +
+    geom_point(alpha = 0.6, size = 3) +
+    facet_wrap( ~ Type) +
+    theme_light() +
+    scale_color_manual(values = c("grey", "orange")) +
+    geom_smooth(alpha = 0.2) +
+    labs(x = "Concentration", y = "CO2 Uptake") +
+    theme(legend.position = "top") # ctrl shift a modifies the code to make it fit formatting conventions
+
+
+
+```
+
+```{r, fig.height=10, fig.width=5}
+plant_biomass <- read_csv("https://uoftcoders.github.io/rcourse/data/plant-biomass-preprocess.csv")
+glimpse(plant_biomass)
+plant_biomass
+
+plant_biomass %>%
+    gather(Variable, Value, -year, -site, -habitat, -treatment) %>% 
+    group_by(habitat, year, treatment, Variable) %>% 
+    summarise(mean_year = mean(Value)) %>% 
+    ggplot(aes(x = year, y = mean_year, color = treatment)) +
+    geom_point() +
+    geom_line() +
+    facet_grid(Variable ~ habitat, scales = "free_y", switch="y", space="free_y") +
+    labs(x = "", y = "plant biomass (g*m^-2)") +
+    theme(legend.position = "none", strip.placement = "outside") +
+    scale_x_continuous(limits=c(1998,2012))+
+    #theme(strip.text.x = element_blank()) +
+    theme(strip.background = element_blank()) +
+    theme(axis.line = element_line(color = "black"),
+    panel.background = element_blank()) +
+    scale_color_manual(name = "treatment", values = c("red", "blue"))
+
+
+
+
+
+
+```
+
+```{r}
+plant_biomass %>%
+    gather(Variable, Value, -year, -site, -habitat, -treatment) %>% 
+    group_by(habitat, year, treatment) %>% 
+    summarise(mean_year = mean(Value)) %>%
+    ggplot(aes(x = year, y = mean_year, color = treatment)) +
+    geom_point() +
+    geom_line() +
+    facet_grid( ~ habitat) +
+    labs(x = "", y = "plant biomass (g*m^-2)") +
+    theme(legend.position = "none") +
+    theme(strip.text.x = element_blank()) +
+    theme(strip.background = element_blank()) +
+    theme(axis.line = element_line(color = "black"),
+    panel.background = element_blank()) +
+    scale_color_manual(name = "treatment", values = c("red", "blue"))
+
+```
